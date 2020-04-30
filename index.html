@@ -18,12 +18,14 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-3">
+      <div class="col-3-md pr-5 pl-4 mr-5 mt-2 bg-light">
+        <h2>Search for a City:</h2>
         <!-- search bar -->
+        <!-- from https://bootstrapious.com/p/bootstrap-search-bar -->
         <form action="">
           <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
             <div class="input-group">
-              <input type="search" placeholder="What're you searching for?" aria-describedby="button-addon1"
+              <input type="search" placeholder="Search for a city..." aria-describedby="button-addon1"
                 class="form-control border-0 bg-light">
               <div class="input-group-append">
                 <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
@@ -31,16 +33,24 @@
             </div>
           </div>
         </form>
+        <!-- recent searches -->
+        <ul class="list-group">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
       </div>
-      <div class="col-9">
+      <div class="col-9-md">
         <div class="row">
-          <div class="col">
+          <div class="col border p-3 m-3 mb-5 rounded">
             <!-- City currently being displayed -->
             <h2><span id="currentCityName">City Name</span> <span id="todaysDate">(MM/DD/YYYY)</span> <span id="weatherIcon"></span></h2>
-            <p>Temperature: <span id="currentCityTemp">XX F</span></p>
+            <p>Temperature: <span id="currentCityTemp">XX °F</span></p>
             <p>Humidity: <span id="currentCityHumid">XX%</span></p>
             <p>Wind Speed: <span id="currentCityWind">X.X MPH</span></p>
-            <p>UV Index: <span id ="currentCityUV">X.XX</span></p>
+            <p>UV Index: <span id ="currentCityUV" class = "btn-danger p-2 border rounded">X.XX</span></p>
           </div>
         </div>
         <div class="row">
@@ -52,49 +62,54 @@
             </div>
             <div class="row">
               <div class="col">
-                <div class="card d-inline-block" style="width: 12rem;">
-                  <img class="card-img-top" src="..." alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id = "card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card1-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card1-Humid">XX%</span></p>
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                   </div>
                 </div>
-                <div class="card d-inline-block" style="width: 12rem;">
-                  <img class="card-img-top" src="..." alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card2-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card2-Humid">XX%</span></p>
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                   </div>
                 </div>
-                <div class="card d-inline-block" style="width: 12rem;">
-                  <img class="card-img-top" src="..." alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card3-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card3-Humid">XX%</span></p>
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                   </div>
                 </div>
-                <div class="card d-inline-block" style="width: 12rem;">
-                  <img class="card-img-top" src="..." alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card4-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card4-Humid">XX%</span></p>
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                   </div>
                 </div>
-                <div class="card d-inline-block" style="width: 12rem;">
-                  <img class="card-img-top" src="..." alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card5-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card5-Humid">XX%</span></p>
                     </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                   </div>
                 </div>
                 <!-- 5 cards for the 5 day forecast -->
