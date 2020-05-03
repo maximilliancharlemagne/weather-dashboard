@@ -38,7 +38,7 @@ const searchHistoryUpdater = (myArr) => {
       let newElem = $('<li>')
       newElem.addClass('list-group-item')
       newElem.text(myArr[i])
-      newElem.attr("id",`search-item-${myArr[i].split(' ').join('')}`)
+      newElem.attr("id",`search-item-${myArr[i].split(' ').join('')}`) //remove whitespace
       newElem.data('name',myArr[i])
       $('#search-history').append(newElem)
       $(`#search-item-${myArr[i].split(' ').join('')}`).click(event => {
