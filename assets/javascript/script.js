@@ -39,14 +39,20 @@ const searchHistoryUpdater = (myArr) => {
       let newElem = $('<li>')
       newElem.addClass('list-group-item')
       newElem.text(myArr[i])
+      mySafeID = myArr[i].split(' ').join('') //remove whitespace
+      mySafeID = mySafeID.replace(/\W/g, '') //remove all non alphanumeric characters
+      for(let index in mySafeID){
+
+      }
       //to do: before creating id, check for characters that will break the ID, for example:
 
-      //non-malicious: "Martha's Vineyard"
-      //malicious: "badString'"`</html>"" (which breaks the searchHistory, but not the page)
-      newElem.attr("id",`search-item-${myArr[i].split(' ').join('')}`) //remove whitespace
+      //non-malicious: "Martha's Vineyard" , "St. Louis"
+      //malicious: "badString'"`</html>"
+
+      newElem.attr("id",`search-item-${mySafeID}`) //remove whitespace
       newElem.data('name',myArr[i])
       $('#search-history').append(newElem)
-      $(`#search-item-${myArr[i].split(' ').join('')}`).click(event => {
+      $(`#search-item-${mySafeID}`).click(event => {
         //interesting question- when an element is deleted from the search history array
         // (by the else statement), and then deleted from the page on line 15, what happens to
         // its event listener?
