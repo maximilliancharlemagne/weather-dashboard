@@ -17,7 +17,14 @@ const searchHistoryUpdater = (myArr) => {
       let newElem = $('<li>')
       newElem.addClass('list-group-item')
       newElem.text(myArr[i])
+      newElem.attr("id",`search-item-${myArr[i]}`)
       $('#search-history').append(newElem)
+      $(`#search-item-${myArr[i]}`).click(event => {
+        console.log(event.currentTarget.id)
+        currentCity = event.currentTarget.id.slice(12) //gets the city name after search-item-
+        mainPageUpdater()
+      }
+      )
     }
   }else{
     searchHistory = myArr.slice(searchHistory.length - 5) //cut the list down to the 5 most recent cities
@@ -41,9 +48,20 @@ $('#search-button').click(event => {
   let myVal = $('#search-input').val()
   currentCity = myVal //since we're going to use currentCity elsewhere, we use a separate variable,
   //myVal, for what we're doing with the variable just inside this function
+
+  //to do: check if the value is a valid city before adding it to the search history
+
+  //add the new city to the search history
   searchHistory.includes(myVal)? $.noop() : searchHistory.push(myVal)
+  //run the search history updater
   searchHistoryUpdater(searchHistory)
+
+  $('#search-input').val('') //clear the form field after we update the search history
+
+  //Update Main Page
+  mainPageUpdater()
 })
 
-//Main Page Code
-
+const mainPageUpdater = () => {
+  $('#currentCityName').text(`${currentCity}`)
+}
