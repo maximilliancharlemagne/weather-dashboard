@@ -38,6 +38,10 @@ const searchHistoryUpdater = (myArr) => {
       let newElem = $('<li>')
       newElem.addClass('list-group-item')
       newElem.text(myArr[i])
+      //to do: before creating id, check for characters that will break the ID, for example:
+
+      //non-malicious: "Martha's Vineyard"
+      //malicious: "badString'"`</html>"" (which breaks the searchHistory, but not the page)
       newElem.attr("id",`search-item-${myArr[i].split(' ').join('')}`) //remove whitespace
       newElem.data('name',myArr[i])
       $('#search-history').append(newElem)
@@ -100,6 +104,11 @@ const mainPageUpdater = () => {
     searchHistory = localStorage.getItem('searchHistory').split(',')
     searchHistoryUpdater(searchHistory)
   }
+  //Get today's forecast
+  //Update temperature
+  //Update humidity
+  //Update wind speed
+  //Update UV Index
 }
 
 mainPageUpdater() //get the main page started with a city
