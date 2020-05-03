@@ -5,4 +5,4 @@ Styled with [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introd
 
 Uses Moment.js, jQuery, and the [OpenWeatherMap APIs](https://openweathermap.org/api)
 
-To be deployed at https://maximilliancharlemagne.github.io/weather-dashboard/
+Deployed at https://maximilliancharlemagne.github.io/weather-dashboard/
