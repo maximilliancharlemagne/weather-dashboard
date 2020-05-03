@@ -1,12 +1,25 @@
 //Define global vars for the whole page
 
 let currentCity = 'Atlanta'
+localStorage.setItem('currentCity',currentCity)
+let ourMomentInstance = moment()
 
 //Search Bar Code
 
 //Define global vars for the search bar
-let currentSearch = ''
-let searchHistory = []
+let searchHistory //important to define it here - if statements have their own scope
+
+if(localStorage.getItem('searchHistory')){ //if it exists already
+  searchHistory = localStorage.getItem('searchHistory').split(',') //make it that
+}
+else{ //if it doesn't exist already
+  searchHistory = [] //make it empty
+}
+
+
+// searchHistory = ['Jefferson City','Daly City','Amarillo'] test cities
+
+// console.log(localStorage.getItem('searchHistory').split(',')) proper code for retreiving the array
 
 //Define the search history updater function
 const searchHistoryUpdater = (myArr) => {
@@ -17,17 +30,22 @@ const searchHistoryUpdater = (myArr) => {
       let newElem = $('<li>')
       newElem.addClass('list-group-item')
       newElem.text(myArr[i])
-      newElem.attr("id",`search-item-${myArr[i]}`)
+      newElem.attr("id",`search-item-${myArr[i].split(' ').join('')}`)
+      newElem.data('name',myArr[i])
       $('#search-history').append(newElem)
-      $(`#search-item-${myArr[i]}`).click(event => {
+      $(`#search-item-${myArr[i].split(' ').join('')}`).click(event => {
+        //interesting question- when an element is deleted from the search history array
+        // (by the else statement), and then deleted from the page on line 15, what happens to
+        // its event listener?
         console.log(event.currentTarget.id)
-        currentCity = event.currentTarget.id.slice(12) //gets the city name after search-item-
+        currentCity = $(`#${event.currentTarget.id}`).data('name') //gets the city name after search-item-
         mainPageUpdater()
       }
       )
     }
   }else{
     searchHistory = myArr.slice(searchHistory.length - 5) //cut the list down to the 5 most recent cities
+    localStorage.setItem('searchHistory',searchHistory) //save the new search history
     console.log(`new history: ${searchHistory}`) //debug
     searchHistoryUpdater(searchHistory) //call this function again, with the newly shortened global
     // variable as the argument (this recursion will terminate the first time, because we just made
@@ -53,6 +71,8 @@ $('#search-button').click(event => {
 
   //add the new city to the search history
   searchHistory.includes(myVal)? $.noop() : searchHistory.push(myVal)
+  //save the new search history
+  localStorage.setItem('searchHistory',searchHistory)
   //run the search history updater
   searchHistoryUpdater(searchHistory)
 
@@ -64,4 +84,12 @@ $('#search-button').click(event => {
 
 const mainPageUpdater = () => {
   $('#currentCityName').text(`${currentCity}`)
+  $('#todaysDate').text(`(${ourMomentInstance.format('M/DD/YYYY')})`)
+  //update the search history from the stored search history, if it isn't empty
+  if (localStorage.getItem('searchHistory')){
+    searchHistory = localStorage.getItem('searchHistory').split(',')
+    searchHistoryUpdater(searchHistory)
+  }
 }
+
+mainPageUpdater() //get the main page started with a city
