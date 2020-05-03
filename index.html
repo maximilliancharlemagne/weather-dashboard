@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>weather.ly</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col bg-dark text-white text-center">
+        <h1>Weather Dashboard</h1>
+        <!-- Header -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3-md pr-5 pl-4 mr-5 mt-2 bg-light">
+        <h2>Search for a City:</h2>
+        <!-- search bar -->
+        <!-- from https://bootstrapious.com/p/bootstrap-search-bar -->
+        <form action="">
+          <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+            <div class="input-group">
+              <input type="search" id="search-input" placeholder="Search for a city..." aria-describedby="button-addon1"
+                class="form-control border-0 bg-white">
+              <div class="input-group-append">
+                <button id="search-button" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- recent searches -->
+        <ul class="list-group" id = "search-history">
+        </ul>
+      </div>
+      <div class="col-9-md">
+        <div class="row">
+          <div class="col border p-3 m-3 mb-5 rounded">
+            <!-- City currently being displayed -->
+            <h2><span id="currentCityName">City Name</span> <span id="todaysDate">(MM/DD/YYYY)</span></h2>
+            <span id="weatherIcon"></span>
+            <p>Temperature: <span id="currentCityTemp">XX °C</span></p>
+            <!-- celsius is a superior system -->
+            <p>Humidity: <span id="currentCityHumid">XX%</span></p>
+            <p>Wind Speed: <span id="currentCityWind">X.X MPH</span></p>
+            <p>UV Index: <span id ="currentCityUV" class = "bg-danger text-white p-2 border rounded">X.XX</span></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <h3>5-Day Forecast:</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" id = "fiveDayForecast">
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id = "card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card1-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card1-Humid">XX%</span></p>
+                    </p>
+                  </div>
+                </div>
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card2-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card2-Humid">XX%</span></p>
+                    </p>
+                  </div>
+                </div>
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card3-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card3-Humid">XX%</span></p>
+                    </p>
+                  </div>
+                </div>
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card4-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card4-Humid">XX%</span></p>
+                    </p>
+                  </div>
+                </div>
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id="card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card5-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card5-Humid">XX%</span></p>
+                    </p>
+                  </div>
+                </div>
+                <!-- 5 cards for the 5 day forecast -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+  <script src="./assets/javascript/script.js"></script>
+</body>
+</html>
