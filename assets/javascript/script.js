@@ -1,7 +1,14 @@
 //Define global vars for the whole page
 
-let currentCity = 'Atlanta'
-localStorage.setItem('currentCity',currentCity)
+let currentCity
+
+if (localStorage.getItem('currentCity')) { //if it exists already
+  currentCity = localStorage.getItem('currentCity') //make it that
+}
+else { //if it doesn't exist already
+  currentCity = 'Atlanta' //make it empty
+}
+
 let ourMomentInstance = moment()
 
 //Search Bar Code
@@ -16,6 +23,7 @@ else{ //if it doesn't exist already
   searchHistory = [] //make it empty
 }
 
+localStorage.setItem('currentCity', currentCity)
 
 // searchHistory = ['Jefferson City','Daly City','Amarillo'] test cities
 
@@ -39,6 +47,7 @@ const searchHistoryUpdater = (myArr) => {
         // its event listener?
         console.log(event.currentTarget.id)
         currentCity = $(`#${event.currentTarget.id}`).data('name') //gets the city name after search-item-
+        localStorage.setItem('currentCity', currentCity) //put the new current city in storage
         mainPageUpdater()
       }
       )
@@ -66,6 +75,7 @@ $('#search-button').click(event => {
   let myVal = $('#search-input').val()
   currentCity = myVal //since we're going to use currentCity elsewhere, we use a separate variable,
   //myVal, for what we're doing with the variable just inside this function
+  localStorage.setItem('currentCity', currentCity) //put the new current city in storage
 
   //to do: check if the value is a valid city before adding it to the search history
 
