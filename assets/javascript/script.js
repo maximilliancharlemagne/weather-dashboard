@@ -1,9 +1,7 @@
 //Define global vars for the whole page
 
 let currentCity
-let apiKey = '110d802a19d34727572afd71cc350157' //or, if you prefer
-//123088B570E15D00 * f000000000000000 (f quadrillion, which is the largest number
-//the online hex calculator I used can divide by)
+let apiKey = '110d802a19d34727572afd71cc350157'
 
 if (localStorage.getItem('currentCity')) { //if it exists already
   currentCity = localStorage.getItem('currentCity') //make it that
@@ -109,8 +107,7 @@ const mainPageUpdater = () => {
   //Get current weather
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}&units=metric`)
   .then(r => {
-    console.log(r)
-    if(r.status == 404){
+    if(r.status == 404){ //if the city is not found
       throw new Error('bad city')
     } 
     return r.json() //LPT: if you define an arrow function as arg => r.doAThing (no {}),
@@ -131,6 +128,45 @@ const mainPageUpdater = () => {
       .then(r => r.json())
       .then(uvData => {
         $('#currentCityUV').text(uvData.value)
+      })
+    //Get 5 day forecast
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=current,hourly&appid=${apiKey}&units=metric`)
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)
+        $('#fiveDayForecast').html('')
+        for(let i = 1; i <=5; i++){
+          let newElem = $('<div>')
+          /* card HTML
+                <div class="card d-inline-block m-3" style="width: 12rem;">
+                  <div class="card-body bg-primary text-white border rounded">
+                    <h5 class="card-title">MM/DD/YYYY</h5>
+                    <span id = "card1-icon"></span>
+                    <p class="card-text">
+                      <p>Temperature: <span id="card1-Temp">XX °F</span></p>
+                      <p>Humidity: <span id="card1-Humid">XX%</span></p>
+                    </p>
+                  </div>
+                </div>
+          */
+         newElem.addClass("card d-inline-block m-3")
+         newElem.attr("style","width: 14rem;")
+         let newChild = $('<div>')
+         newChild.addClass("card-body bg-primary text-white border rounded")
+        //  newChild.attr("style","height:200px;")
+          newChild.html(`
+            <h5 class="card-title">${ourMomentInstance.add(1,'days').format('M/DD/YYYY'
+            )}</h5>
+              <img src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png">
+              <p class="card-text">
+                <p>Temperature: ${data.daily[i].temp.day} °C</p>
+                <p>Humidity: ${data.daily[i].humidity}%</p>
+              </p>`)
+        newElem.append(newChild)
+        $('#fiveDayForecast').append(newElem)
+        } //end of for loop
+        //reset the moment instance
+        ourMomentInstance.subtract(5, 'days')
       })
     
   })
