@@ -1,6 +1,9 @@
 //Define global vars for the whole page
 
 let currentCity
+let apiKey = '110d802a19d34727572afd71cc350157' //or, if you prefer
+//123088B570E15D00 * f000000000000000 (f quadrillion, which is the largest number
+//the online hex calculator I used can divide by)
 
 if (localStorage.getItem('currentCity')) { //if it exists already
   currentCity = localStorage.getItem('currentCity') //make it that
@@ -97,18 +100,43 @@ $('#search-button').click(event => {
 })
 
 const mainPageUpdater = () => {
-  $('#currentCityName').text(`${currentCity}`)
   $('#todaysDate').text(`(${ourMomentInstance.format('M/DD/YYYY')})`)
   //update the search history from the stored search history, if it isn't empty
   if (localStorage.getItem('searchHistory')){
     searchHistory = localStorage.getItem('searchHistory').split(',')
     searchHistoryUpdater(searchHistory)
   }
-  //Get today's forecast
-  //Update temperature
-  //Update humidity
-  //Update wind speed
-  //Update UV Index
+  //Get current weather
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}&units=metric`)
+  .then(r => {
+    console.log(r)
+    if(r.status == 404){
+      throw new Error('bad city')
+    } 
+    return r.json() //LPT: if you define an arrow function as arg => r.doAThing (no {}),
+  }) //the function will return r.doAThing
+  .then(data => {
+    $('#search-input').val('')
+    $('#currentCityName').text(`${currentCity}`)
+    //Update image
+    $('#weatherIcon').html(`<img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">`)
+    //Update temperature
+    $('#currentCityTemp').text(`${data.main.temp} °C`)
+    //Update humidity
+    $('#currentCityHumid').text(`${data.main.humidity}%`)
+    //Update wind speed
+    $('#currentCityWind').text(`${data.wind.speed} km/h`)
+    //Update UV Index
+    fetch(`https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${data.coord.lat}&lon=${data.coord.lon}`)
+      .then(r => r.json())
+      .then(uvData => {
+        $('#currentCityUV').text(uvData.value)
+      })
+    
+  })
+  .catch(e => {
+    $('#search-input').val('City not found')
+  })
 }
 
 mainPageUpdater() //get the main page started with a city
