@@ -132,8 +132,18 @@ const mainPageUpdater = () => {
     //Update UV Index
     fetch(`https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${data.coord.lat}&lon=${data.coord.lon}`)
       .then(r => r.json())
-      .then(uvData => {
-        $('#currentCityUV').text(uvData.value)
+      .then(uvData => {``
+        let uvIndex = uvData.value
+        $('#currentCityUV').text(uvIndex)
+        if (uvIndex < 2){
+          $('#currentCityUV').addClass('bg-primary')
+        }
+        else if (uvIndex < 7){
+          $('#currentCityUV').addClass('bg-warning')
+        }
+        else{
+          $('#currentCityUV').addClass('bg-danger')
+        }
       })
     //Get 5 day forecast
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=current,hourly&appid=${apiKey}&units=metric`)
