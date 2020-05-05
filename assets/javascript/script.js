@@ -137,12 +137,15 @@ const mainPageUpdater = () => {
         $('#currentCityUV').text(uvIndex)
         if (uvIndex < 2){
           $('#currentCityUV').addClass('bg-primary')
+          $('#currentCityUV').removeClass('bg-danger bg-warning')
         }
         else if (uvIndex < 7){
           $('#currentCityUV').addClass('bg-warning')
+          $('#currentCityUV').removeClass('bg-primary bg-danger')
         }
         else{
           $('#currentCityUV').addClass('bg-danger')
+          $('#currentCityUV').removeClass('bg-primary bg-warning')
         }
       })
     //Get 5 day forecast
